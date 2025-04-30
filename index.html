@@ -1,91 +1,70 @@
-<!DOCTYPE html>
-<html lang="ar">
+<!DOCTYPE html><html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خريطة المطاعم في ولاية البويرة</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <style>
-        #map {
-            height: 500px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة مراقبة Tawsil Star AI</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      direction: rtl;
+      background-color: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .btn {
+      background-color: #3498db;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h1>خريطة المطاعم في ولاية البويرة</h1>
-    <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([36.3715, 3.1209], 12); // إحداثيات ولاية البويرة
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // إضافة نقاط لمطاعم
-        var restaurants = [
-            {
-                name: "مطعم 1",
-                lat: 36.372,
-                lng: 3.131
-            },
-            {
-                name: "مطعم 2",
-                lat: 36.373,
-                lng: 3.132
-            }
-        ];
-
-        restaurants.forEach(function(restaurant) {
-            L.marker([restaurant.lat, restaurant.lng])
-                .addTo(map)
-                .bindPopup('<b>' + restaurant.name + '</b><br>رقم الهاتف: 1234567890<br>نوع المطعم: مطبخ جزائري');
-        });
-    </script>
+  <header>
+    <h1>لوحة مراقبة Tawsil Star AI</h1>
+  </header>
+  <div class="container">
+    <div class="card">
+      <h3>عدد الشكاوى اليوم</h3>
+      <p id="complaints-count">0</p>
+    </div>
+    <div class="card">
+      <h3>مشرفو الولايات</h3>
+      <ul id="supervisors-list">
+        <li>البويرة: 0792593020</li>
+        <li>الجزائر: 0775877088</li>
+        <li>سطيف: 0670279603</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>شكاوى حديثة</h3>
+      <ul id="recent-complaints">
+        <li>الزبون: عمر بن عيسى، الولاية: الجزائر، السبب: تأخير في التوصيل</li>
+      </ul>
+      <button class="btn" onclick="alert('تحديث البيانات...')">تحديث</button>
+    </div>
+  </div>
 </body>
 </html>
-<div id="map" style="height: 600px; width: 100%;"></div>
-
-<script>
-  function initMap() {
-    const bouira = { lat: 36.3746, lng: 3.9020 };
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 12,
-      center: bouira,
-    });
-
-    const restaurants = [
-      {
-        name: "مطعم الهناء",
-        type: "تقليدي",
-        phone: "0555 66 77 88",
-        position: { lat: 36.374, lng: 3.9 },
-      },
-      {
-        name: "Pizza Express",
-        type: "بيتزا",
-        phone: "0777 88 99 00",
-        position: { lat: 36.38, lng: 3.89 },
-      }
-    ];
-
-    restaurants.forEach(r => {
-      const marker = new google.maps.Marker({
-        position: r.position,
-        map: map,
-        title: r.name,
-      });
-
-      const info = new google.maps.InfoWindow({
-        content: `<strong>${r.name}</strong><br>النوع: ${r.type}<br>الهاتف: ${r.phone}`,
-      });
-
-      marker.addListener("click", () => info.open(map, marker));
-    });
-  }
-</script>
-
-<script async
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-</script>
