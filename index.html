@@ -45,3 +45,47 @@
     </script>
 </body>
 </html>
+<div id="map" style="height: 600px; width: 100%;"></div>
+
+<script>
+  function initMap() {
+    const bouira = { lat: 36.3746, lng: 3.9020 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 12,
+      center: bouira,
+    });
+
+    const restaurants = [
+      {
+        name: "مطعم الهناء",
+        type: "تقليدي",
+        phone: "0555 66 77 88",
+        position: { lat: 36.374, lng: 3.9 },
+      },
+      {
+        name: "Pizza Express",
+        type: "بيتزا",
+        phone: "0777 88 99 00",
+        position: { lat: 36.38, lng: 3.89 },
+      }
+    ];
+
+    restaurants.forEach(r => {
+      const marker = new google.maps.Marker({
+        position: r.position,
+        map: map,
+        title: r.name,
+      });
+
+      const info = new google.maps.InfoWindow({
+        content: `<strong>${r.name}</strong><br>النوع: ${r.type}<br>الهاتف: ${r.phone}`,
+      });
+
+      marker.addListener("click", () => info.open(map, marker));
+    });
+  }
+</script>
+
+<script async
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+</script>
